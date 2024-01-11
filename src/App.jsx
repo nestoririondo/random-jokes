@@ -12,17 +12,18 @@ function App() {
   const [categories, setCategories] = useState("Any");
   const [contains, setContains] = useState("");
 
-  const loadJokes = () => {
+  const loadJokes = async () => {
     setIsLoading(true);
-    axios
-      .get(`https://v2.jokeapi.dev/joke/${categories}?${contains}amount=10`)
-      .then((response) => {
-        setJokes(response.data.jokes);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try {
+      const response = await axios.get(
+        `https://v2.jokeapi.dev/joke/${categories}?${contains}amount=10`
+      );
+      setJokes(response.data.jokes);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function App() {
   };
 
   const bringMeUp = () => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   };
 
   const loadMore = () => {
