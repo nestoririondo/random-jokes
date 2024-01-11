@@ -14,7 +14,7 @@ This is a simple React application that fetches random jokes from the [JokeAPI](
 1. Clone this repository: `git clone https://github.com/yourusername/random-jokes-app.git`
 2. Navigate to the project directory: `cd random-jokes-app`
 3. Install the dependencies: `npm install`
-4. Start the application: `npm start`
+4. Start the application: `npm run dev`
 
 ## Usage
 
