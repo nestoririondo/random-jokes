@@ -1,31 +1,33 @@
 import { useState, useEffect } from "react";
 
-const Filters = ({ setFilters }) => {
-  const [activeFilters, setActiveFilters] = useState([
+const Categories = ({ setCategories }) => {
+  const [activeCategories, setActiveCategories] = useState([
     "Programming",
-    "Misc",
+    "Miscellaneous",
     "Dark",
     "Spooky",
     "Christmas",
   ]);
 
   const handleFilter = (value) => {
-    if (activeFilters.includes(value)) {
-      setActiveFilters(activeFilters.filter((filter) => filter !== value));
+    if (activeCategories.includes(value)) {
+      setActiveCategories(
+        activeCategories.filter((filter) => filter !== value)
+      );
     } else {
-      setActiveFilters([...activeFilters, value]);
+      setActiveCategories([...activeCategories, value]);
     }
   };
 
   useEffect(() => {
-    setFilters(activeFilters.toString());
-  }, [activeFilters]);
+    setCategories(activeCategories.toString());
+  }, [activeCategories]);
 
   return (
     <div className="filters">
       <input
         onChange={(e) => handleFilter(e.target.value)}
-        checked={activeFilters.includes("Programming")}
+        checked={activeCategories.includes("Programming")}
         type="checkbox"
         name="Programming"
         value="Programming"
@@ -34,16 +36,16 @@ const Filters = ({ setFilters }) => {
       <label htmlFor="Programming">Programming</label>
       <input
         onChange={(e) => handleFilter(e.target.value)}
-        checked={activeFilters.includes("Misc")}
+        checked={activeCategories.includes("Miscellaneous")}
         type="checkbox"
-        name="Misc"
-        value="Misc"
-        id="Misc"
+        name="Miscellaneous"
+        value="Miscellaneous"
+        id="Miscellaneous"
       />
-      <label htmlFor="Misc">Misc</label>
+      <label htmlFor="Miscellaneous">Miscellaneous</label>
       <input
         onChange={(e) => handleFilter(e.target.value)}
-        checked={activeFilters.includes("Dark")}
+        checked={activeCategories.includes("Dark")}
         type="checkbox"
         name="Dark"
         value="Dark"
@@ -52,7 +54,7 @@ const Filters = ({ setFilters }) => {
       <label htmlFor="Dark">Dark</label>
       <input
         onChange={(e) => handleFilter(e.target.value)}
-        checked={activeFilters.includes("Spooky")}
+        checked={activeCategories.includes("Spooky")}
         type="checkbox"
         name="Spooky"
         value="Spooky"
@@ -61,7 +63,7 @@ const Filters = ({ setFilters }) => {
       <label htmlFor="Spooky">Spooky</label>
       <input
         onClick={(e) => handleFilter(e.target.value)}
-        checked={activeFilters.includes("Christmas")}
+        checked={activeCategories.includes("Christmas")}
         type="checkbox"
         name="Christmas"
         value="Christmas"
@@ -72,4 +74,4 @@ const Filters = ({ setFilters }) => {
   );
 };
 
-export default Filters;
+export default Categories;

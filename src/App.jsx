@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
 import DisplayJoke from "./components/DisplayJoke";
-import Filters from "./components/Filters";
+import Categories from "./components/Categories";
 import SearchBar from "./components/SearchBar";
 
 function App() {
   const [jokes, setJokes] = useState([]);
   const [showArray, setShowArray] = useState([]);
-  const [filters, setFilters] = useState("Any");
   const [isLoading, setIsLoading] = useState(false);
+  const [categories, setCategories] = useState("Any");
   const [contains, setContains] = useState("");
 
   const loadJokes = () => {
     setIsLoading(true);
     axios
-      .get(`https://v2.jokeapi.dev/joke/${filters}?${contains}amount=10`)
+      .get(`https://v2.jokeapi.dev/joke/${categories}?${contains}amount=10`)
       .then((response) => {
         setJokes(response.data.jokes);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function App() {
 
   useEffect(() => {
     loadJokes();
-  }, [filters, contains]);
+  }, [categories, contains]);
 
   const handleRefresh = () => {
     setJokes([]);
@@ -35,12 +35,12 @@ function App() {
   };
 
   const bringMeUp = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); 
   };
 
   const loadMore = () => {
     axios
-      .get(`https://v2.jokeapi.dev/joke/${filters}?amount=10`)
+      .get(`https://v2.jokeapi.dev/joke/${categories}?amount=10`)
       .then((response) => {
         setJokes([...jokes, ...response.data.jokes]);
       })
@@ -52,9 +52,9 @@ function App() {
   return (
     <>
       <h1>Random Jokes</h1>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Categories categories={categories} setCategories={setCategories} />
       <SearchBar contains={contains} setContains={setContains} />
-      {filters && <button onClick={handleRefresh}>Load again</button>}
+      {categories && <button onClick={handleRefresh}>Load again</button>}
       <div className="joke-container">
         {isLoading && <p>Loading...</p>}
         {jokes &&
@@ -69,8 +69,8 @@ function App() {
             );
           })}
       </div>
-      {!filters && <p>Select some category!</p>}
-      {filters && (
+      {!categories && <p>Select some category!</p>}
+      {categories && (
         <>
           <button onClick={loadMore}>Load More</button>
           <button onClick={bringMeUp}>Bring me UP!</button>
